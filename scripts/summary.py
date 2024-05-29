@@ -3,7 +3,7 @@ from openpyxl.styles import Alignment, PatternFill
 import pandas as pd
 
 # Read the CSV data
-df = pd.read_csv('Input files/scheduled_vs_actual_GT.csv')
+df = pd.read_csv('excel_automation/Input files/scheduled_vs_actual_GT.csv')
 
 
 # Calculate total scheduled hours and actual hours for each employee
@@ -89,5 +89,5 @@ for col in ws.columns:
 ws.auto_filter.ref = f"A4:E{len(employee_totals) + 4}"
 
 # Save the workbook
-wb.save("Generated file/SummaryReport.xlsx")
+wb.save("excel_automation/Generated file/SummaryReport.xlsx")
 print("hello")
