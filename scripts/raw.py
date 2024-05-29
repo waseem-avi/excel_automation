@@ -36,7 +36,7 @@ df['Payroll Period'] = df['Date'].apply(determine_payroll_period)
 df['Week'] = df['Date'].apply(determine_week)
 
 # Save to Excel without index
-filename = 'excel_automation/Generated file/Raw.xlsx'
+filename = 'excel_automation/Generated files/Raw.xlsx'
 df.to_excel(filename, index=False)
 
 # Load the workbook and worksheet to apply formatting

@@ -89,5 +89,5 @@ for col in ws.columns:
 ws.auto_filter.ref = f"A4:E{len(employee_totals) + 4}"
 
 # Save the workbook
-wb.save("excel_automation/Generated file/SummaryReport.xlsx")
+wb.save("excel_automation/Generated files/SummaryReport.xlsx")
 print("hello")
