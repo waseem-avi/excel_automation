@@ -32,6 +32,10 @@ days = [date.strftime("%A") for date in all_dates]
 
 # Fill in the names starting from cell C7
 for row_index, name in enumerate(names, start=7):
+    if row_index > 40:  # Stop at row 40
+        break
+    if row_index == 18:
+        row_index = row_index+1
     cell = ws.cell(row=row_index, column=3)
     if cell.value is None:
         cell.value = name
@@ -60,7 +64,11 @@ for name_index, name in enumerate(names, start=0):
         
         # Calculate the row index for SH and AH
         row_index = name_index + 7
+        if row_index == 18:
+            row_index += 1  # Skip row 18
         col_index = date_index * 2 + 4
+        if row_index > 40:  # Stop at row 40
+            break
         
         # Scheduled Hours (SH) cell
         sh_cell = ws.cell(row=row_index, column=col_index)
