@@ -5,7 +5,7 @@ from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
 
 # Load data from a CSV file
-scheduled_hours_vs_actual_hours_df = pd.read_csv('excel_automation/Input files/scheduled_vs_actual_GT.csv')
+scheduled_hours_vs_actual_hours_df = pd.read_csv('Input files/scheduled_vs_actual_GT.csv')
 
 # Define functions to manipulate dates
 def convert_date_format(date_str):
@@ -36,7 +36,7 @@ df['Payroll Period'] = df['Date'].apply(determine_payroll_period)
 df['Week'] = df['Date'].apply(determine_week)
 
 # Save to Excel without index
-filename = 'excel_automation/Generated files/Raw.xlsx'
+filename = 'Generated files/Raw.xlsx'
 df.to_excel(filename, index=False)
 
 # Load the workbook and worksheet to apply formatting
@@ -64,4 +64,4 @@ ws.auto_filter.ref = ws.dimensions
 
 # Save the changes to the workbook
 wb.save(filename)
-print("hello")
+

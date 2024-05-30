@@ -3,11 +3,11 @@ from openpyxl import load_workbook
 from datetime import datetime, timedelta
 
 # Load the raw data
-raw_data_path = 'F:\excel_auto\excel_automation\Generated files\Raw.xlsx'  # replace with your actual file path
+raw_data_path = 'Generated files/Raw.xlsx'  # replace with your actual file path
 raw_df = pd.read_excel(raw_data_path)
 
 # Load the format file
-format_file_path = r'F:\excel_auto\excel_automation\format file\format.xlsx'  # replace with your actual format file path
+format_file_path = 'Format file/format.xlsx'  # replace with your actual format file path
 wb = load_workbook(format_file_path)
 ws = wb.active
 
@@ -73,5 +73,5 @@ for name_index, name in enumerate(names, start=0):
             ah_cell.value = date_df.iloc[0]['Actual Hours'] if not date_df.empty else 0
 
 # Save the workbook to a new file
-formatted_data_path = 'F:\excel_auto\excel_automation\Generated files\dashboard.xlsx'  # replace with your desired file path
+formatted_data_path = 'Generated files/dashboard.xlsx'  # replace with your desired file path
 wb.save(formatted_data_path)
