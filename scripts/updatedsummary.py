@@ -27,39 +27,36 @@ headers = ["Location", "Staff Total", "Providers Total", "All Staff Ratio (Provi
 ws.append(headers)
 
 # Adding Germantown row
-ws.append(["Germantown", 0, 0, "#DIV/0!"])
+ws.append(["Germantown", "", "", ""])
 
 # Adding empty row for spacing
 ws.append([])
 
 # Adding Staff/Provider table headers
-staff_provider_headers = ["Staff/Provider Name", "Sum of Scheduled Hours", "Sum of Actual Hours", "Days of Availability", "Difference"]
+staff_provider_headers = ["", "Staff/Provider", "Name", "Sum of Scheduled Hours", "Sum of Actual Hours", "Days of Availability", "Difference"]
 ws.append(staff_provider_headers)
 
 # Adding rows with data from employee_totals DataFrame
 for index, row in employee_totals.iterrows():
-    ws.append(["", row['Name'], row['total_scheduled_hours'], row['total_actual_hours'], row['Availability'], row['difference_hours']])
+    ws.append(["", "#NAME?", row['Name'], row['total_scheduled_hours'], row['total_actual_hours'], row['Availability'], row['difference_hours']])
 
-# Adding the final sum row and formatting
-grand_total_row = ["Grand Total", employee_totals['total_scheduled_hours'].sum(), employee_totals['total_actual_hours'].sum(),
-                   employee_totals['Availability'].sum(), employee_totals['difference_hours'].sum()]
-ws.append(grand_total_row)
+# Adding the Grand Total row
+grand_total_values = ["Grand Total", "", "", employee_totals['total_scheduled_hours'].sum(), employee_totals['total_actual_hours'].sum(),
+                      employee_totals['Availability'].sum(), employee_totals['difference_hours'].sum()]
+ws.append(grand_total_values)
 
 # Formatting the last row and difference value
 emerald_green_fill = PatternFill(start_color="50C878", end_color="50C878", fill_type="solid")
 for cell in ws.iter_rows(min_row=ws.max_row, max_row=ws.max_row, min_col=1, max_col=ws.max_column):
     for c in cell:
         c.fill = emerald_green_fill
-        if c.column == 5:  # Difference column
+        if c.column == 7:  # Difference column
             c.number_format = '0.00'
 
-# Formatting the Difference column to two decimal places
-for row in ws.iter_rows(min_row=4, max_row=ws.max_row-1, min_col=5, max_col=5):
-    for cell in row:
-        cell.number_format = '0.00'
-
-# Aligning headers to center
+# Aligning headers and Grand Total row to center
 for cell in ws["1:1"]:
+    cell.alignment = Alignment(horizontal="center")
+for cell in ws[f"{ws.max_row}:{ws.max_row}"]:
     cell.alignment = Alignment(horizontal="center")
 
 # Coloring the specific headers in emerald green
@@ -85,7 +82,7 @@ for col in ws.columns:
     ws.column_dimensions[column].width = adjusted_width
 
 # Add auto filter only to the Staff/Provider table headers section
-ws.auto_filter.ref = f"A4:E{len(employee_totals) + 4}"
+ws.auto_filter.ref = f"B3:G{len(employee_totals) + 4}"
 
 # Save the workbook
-wb.save("Generated files/UpdatedSummaryReport1.xlsx")
+wb.save("Generated files/UpdatedSummaryReport.xlsx")
