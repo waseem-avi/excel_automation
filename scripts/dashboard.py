@@ -28,6 +28,7 @@ max_date = max(dates)
 all_dates = pd.date_range(start=min_date, end=max_date)
 
 # Calculate days based on dates
+
 days = [date.strftime("%A") for date in all_dates]
 
 # Fill in the names starting from cell C7
